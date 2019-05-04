@@ -7,12 +7,18 @@ import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
     EditText nameField, passwordField, cpfField, emailField ;
     Button button;
+    Boolean validador = true;
+    ArrayAdapter usuarios;
+    int contador = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,59 +42,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cadastrarUsuario() {
+
         if (validaCampos()){
-            nameField.setError(getString(R.string.mensagem_erro_nome));
+            Usuario usuario = montaUsuario();
+            usuarios = new ArrayAdapter(this, contador, Collections.singletonList(usuario));
+
+
+            System.out.println(usuarios.getItem(contador));
+            contador++;
         }
     }
-
-    private boolean validaCampos() {
-
+    private Usuario montaUsuario(){
         String nome = nameField.getText().toString();
         String email = emailField.getText().toString();
         String cpf = cpfField.getText().toString();
         String senha = passwordField.getText().toString();
+        Usuario usuario = new Usuario(nome, email, cpf, senha);
 
-        if (nome.isEmpty()) {
+        return usuario;
+    }
+
+
+    private Boolean validaCampos() {
+
+        Usuario u = montaUsuario();
+
+        if (u.getNome().isEmpty()) {
             nameField.setError(getString(R.string.mensagem_erro_nome));
-            return false;
+            validador = false;
         }
 
-        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (u.getEmail().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(u.getEmail()).matches()) {
             emailField.setError(getString(R.string.mensagem_erro_email));
-            return false;
+            validador = false;
         }
 
-        if (senha.isEmpty()) {
+        if (u.getSenha().isEmpty()) {
             passwordField.setError(getString(R.string.mensagem_erro_senha));
-            return false;
+            validador =  false;
         }
 
-        if (cpf.isEmpty() || !ValidaCPF.isCPF(cpf)){
+        if (u.getCpf().isEmpty() || !ValidaCPF.isCPF(u.getCpf())){
             cpfField.setError(getString(R.string.mensagem_erro_cpf));
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            validador = false;
         }
 
-        return super.onOptionsItemSelected(item);
+
+        return validador;
     }
 }
