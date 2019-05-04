@@ -1,0 +1,14 @@
+<resources>
+<string name="app_name">Uaicessos</string>
+<string name="action_settings">Settings</string>
+    <string name="registro">REGISTRO</string>
+    <string name="nome_completo">Nome Completo</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="cpf">CPF</string>
+    <string name="salvar">SALVAR</string>
+    <string name="mensagem_erro_nome">Nome não pode ser vazio</string>
+    <string name="mensagem_erro_email">Email inválido</string>
+    <string name="mensagem_erro_senha">Senha não pode ser vazia</string>
+    <string name="mensagem_erro_cpf">CPF inválido</string>
+</resources>
