@@ -2,6 +2,9 @@ package com.example.uaicessos;
 
 import android.widget.EditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 class Usuario {
     String nome;
     String email;
@@ -48,4 +51,22 @@ class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public String toJSON(){
+
+        JSONObject jsonObject= new JSONObject();
+        try {
+            jsonObject.put("nome", getNome());
+            jsonObject.put("email", getEmail());
+            jsonObject.put("senha", getSenha());
+            jsonObject.put("cpf", getCpf());
+
+            return jsonObject.toString();
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return "";
+        }
 }
+}
+

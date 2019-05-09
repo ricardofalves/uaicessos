@@ -41,17 +41,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void cadastrarUsuario() {
+    private String cadastrarUsuario() {
 
         if (validaCampos()){
             Usuario usuario = montaUsuario();
-            usuarios = new ArrayAdapter(this, contador, Collections.singletonList(usuario));
 
-
-            System.out.println(usuarios.getItem(contador));
-            contador++;
+            return usuario.toJSON();
         }
+        return null;
     }
+
     private Usuario montaUsuario(){
         String nome = nameField.getText().toString();
         String email = emailField.getText().toString();
