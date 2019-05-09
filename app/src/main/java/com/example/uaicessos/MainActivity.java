@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String cadastrarUsuario() {
+    public String cadastrarUsuario() {
 
         if (validaCampos()){
             Usuario usuario = montaUsuario();
